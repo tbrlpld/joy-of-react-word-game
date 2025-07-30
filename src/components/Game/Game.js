@@ -18,11 +18,7 @@ class Guess {
 }
 
 function Game() {
-  const [guesses, setGuesses] = React.useState([
-    new Guess({id: crypto.randomUUID(), word: "hello"}),
-    new Guess({id: crypto.randomUUID(), word: "there"}),
-    new Guess({id: crypto.randomUUID(), word: "world"}),
-  ])
+  const [guesses, setGuesses] = React.useState([])
 
   function guessWord(word) {
     const newGuess = new Guess({id: crypto.randomUUID(), word: word})
