@@ -1,7 +1,7 @@
 import React from 'react';
 
 function GuessesOutput() {
-  return <div></div>;
+  return <div>Guesses output</div>;
 }
 
 export default GuessesOutput;
