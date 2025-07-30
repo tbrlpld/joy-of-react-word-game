@@ -10,10 +10,29 @@ const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
+class Guess {
+  constructor({id, word}) {
+    this.id = id
+    this.word = word
+  }
+}
+
 function Game() {
+  const [guesses, setGuesses] = React.useState([
+    new Guess({id: crypto.randomUUID(), word: "hello"}),
+    new Guess({id: crypto.randomUUID(), word: "there"}),
+    new Guess({id: crypto.randomUUID(), word: "world"}),
+  ])
+
+  function guessWord(word) {
+    const newGuess = new Guess({id: crypto.randomUUID(), word: word})
+    const newGuesses = [...guesses, newGuess]
+    setGuesses(newGuesses)
+  }
+
   return <>
-      <GuessesOutput />
-      <GuessInput />
+      <GuessesOutput guesses={guesses}/>
+      <GuessInput submitNewGuess={guessWord} />
     </>
 }
 
