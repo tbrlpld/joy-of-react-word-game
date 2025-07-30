@@ -17,7 +17,7 @@ function GuessInput() {
             type="text"
             value={word}
             onChange={event => {
-              setWord(event.target.value);
+              setWord(event.target.value.toUpperCase());
             }}
         />
       </form>
