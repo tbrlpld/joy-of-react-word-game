@@ -20,6 +20,8 @@ function GuessInput() {
               setWord(event.target.value.toUpperCase());
             }}
             maxLength={5}
+            pattern="[a-zA-Z]{5}"
+            autoComplete="off"
         />
       </form>
   )
