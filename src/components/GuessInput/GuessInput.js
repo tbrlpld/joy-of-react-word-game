@@ -19,6 +19,7 @@ function GuessInput() {
             onChange={event => {
               setWord(event.target.value.toUpperCase());
             }}
+            maxLength={5}
         />
       </form>
   )
