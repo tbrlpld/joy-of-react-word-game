@@ -8,6 +8,8 @@ import * as constants from "../../constants"
 function GuessesOutput({guesses}) {
 
   const rows = range(constants.NUM_OF_GUESSES_ALLOWED).map(index => {
+    // If we have an existing guess for the row index, use that.
+    // Otherwise create a dummy.
     const guess = guesses[index] || {id: index, word: ""}
     console.log(guess)
     return (
