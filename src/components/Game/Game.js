@@ -5,6 +5,7 @@ import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
 import Guess from "../Guess";
+import { GuessedWord } from './Game.models';
 
 
 // Pick a random word on every pageload.
@@ -34,13 +35,6 @@ function Game() {
       <GuessInput submitNewGuess={guessWord} />
     </>
   )
-}
-
-class GuessedWord {
-  constructor({id, word}) {
-    this.id = id || crypto.randomUUID()
-    this.value = word
-  }
 }
 
 export default Game;
