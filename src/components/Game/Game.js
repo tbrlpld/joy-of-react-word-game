@@ -11,9 +11,15 @@ const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
+/**
+ * Create a guess from a word.
+ *
+ * Checks the guess against the answer and holds the letters with their status.
+ * A letters status can be "incorrect", "misplaced" or "correct".
+ */
 class Guess {
-  constructor({id, word}) {
-    this.id = id
+  constructor({word}) {
+    this.id = crypto.randomUUID()
     this.checkedLetters = checkGuess(word, answer)
   }
 }
@@ -22,7 +28,7 @@ function Game() {
   const [guesses, setGuesses] = React.useState([])
 
   function guessWord(word) {
-    const newGuess = new Guess({id: crypto.randomUUID(), word: word})
+    const newGuess = new Guess({word: word})
     const newGuesses = [...guesses, newGuess]
     setGuesses(newGuesses)
   }
