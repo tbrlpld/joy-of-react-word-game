@@ -8,10 +8,10 @@ import * as constants from "../../constants"
 function GuessesOutput({children}) {
   // Pad and limit displayed children to number of allowed guesses.
   const rows = range(constants.NUM_OF_GUESSES_ALLOWED).map(num => {
-    const guess = children[num]
+    const child = children[num]
 
-    if (guess) {
-      return guess
+    if (child) {
+      return child
     } else {
       return <Guess key={num} />
     }
