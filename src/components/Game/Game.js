@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { sample } from '../../utils';
 import { WORDS } from '../../data';
+import {checkGuess} from "../../game-helpers";
+import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
 
@@ -13,7 +14,7 @@ console.info({ answer });
 class Guess {
   constructor({id, word}) {
     this.id = id
-    this.word = word
+    this.checkedLetters = checkGuess(word, answer)
   }
 }
 
@@ -27,7 +28,7 @@ function Game() {
   }
 
   return <>
-      <GuessesOutput guesses={guesses} answer={answer}/>
+      <GuessesOutput guesses={guesses} />
       <GuessInput submitNewGuess={guessWord} />
     </>
 }
