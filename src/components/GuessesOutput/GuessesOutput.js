@@ -5,8 +5,7 @@ import {range} from "../../utils";
 import * as constants from "../../constants"
 
 
-function GuessesOutput({guesses}) {
-
+function GuessesOutput({guesses, answer}) {
   const rows = range(constants.NUM_OF_GUESSES_ALLOWED).map(index => {
     // If we have an existing guess for the row index, use that.
     // Otherwise create a dummy.
@@ -16,6 +15,7 @@ function GuessesOutput({guesses}) {
       <Guess
         key={guess.id}
         word={guess.word}
+        answer={answer}
       />
     )
   });
