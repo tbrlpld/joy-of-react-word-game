@@ -5,18 +5,16 @@ import {range} from "../../utils";
 import * as constants from "../../constants"
 
 
-function GuessesOutput({guesses}) {
+function GuessesOutput({children}) {
+  // Pad and limit displayed children to number of allowed guesses.
   const rows = range(constants.NUM_OF_GUESSES_ALLOWED).map(num => {
-    // If we have an existing guess for the row index, use that.
-    // Otherwise, create a dummy.
-    const guess = guesses[num] || {id: num, checkedLetters: []}
+    const child = children[num]
 
-    return (
-      <Guess
-        key={guess.id}
-        checkedLetters={guess.checkedLetters}
-      />
-    )
+    if (child) {
+      return child
+    } else {
+      return <Guess key={num} />
+    }
   });
 
   return (

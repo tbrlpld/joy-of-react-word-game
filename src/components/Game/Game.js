@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { WORDS } from '../../data';
-import { GuessedWord, CheckedGuess } from '../../models';
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
+import Guess from "../Guess";
+import { GuessedWord } from './Game.models';
+
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -19,19 +21,16 @@ function Game() {
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
-  const checkedGuesses = guessedWords.map(guessedWord => {
-      return new CheckedGuess({
-        id: guessedWord.id,
-        guess: guessedWord.value,
-        answer: answer
-      })
-    }
-  )
-
-  return <>
-      <GuessesOutput guesses={checkedGuesses} />
+  return (
+    <>
+      <GuessesOutput>
+        {guessedWords.map(guessedWord => (
+          <Guess key={guessedWord.id} word={guessedWord.value} answer={answer} />
+        ))}
+      </GuessesOutput>
       <GuessInput submitNewGuess={guessWord} />
     </>
+  )
 }
 
 export default Game;
