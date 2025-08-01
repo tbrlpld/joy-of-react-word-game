@@ -6,10 +6,10 @@ import * as constants from "../../constants"
 
 
 function GuessesOutput({guesses, answer}) {
-  const rows = range(constants.NUM_OF_GUESSES_ALLOWED).map(index => {
+  const rows = range(constants.NUM_OF_GUESSES_ALLOWED).map(num => {
     // If we have an existing guess for the row index, use that.
     // Otherwise create a dummy.
-    const guess = guesses[index] || {id: index, word: ""}
+    const guess = guesses[num] || {id: num, word: ""}
     console.log(guess)
     return (
       <Guess
