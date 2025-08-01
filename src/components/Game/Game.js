@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { WORDS } from '../../data';
-import { GuessedWord, CheckedGuess } from '../../models';
+import { GuessedWord } from '../../models';
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
@@ -21,11 +21,16 @@ function Game() {
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
+  const guesses = guessedWords.map(guessedWord => {
+    return (
+      <Guess key={guessedWord.id} word={guessedWord.value} answer={answer} />
+    )
+  })
+
   return (
     <>
       <GuessesOutput>
-        <Guess />
-        <Guess word="HELLO" answer="WORLD" />
+        {guesses}
       </GuessesOutput>
       <GuessInput submitNewGuess={guessWord} />
     </>
