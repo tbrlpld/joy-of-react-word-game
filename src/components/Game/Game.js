@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { sample } from '../../utils';
 import { WORDS } from '../../data';
+import { GuessedWord, CheckedGuess } from '../../models';
+import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
 
@@ -10,24 +11,25 @@ const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
-class Guess {
-  constructor({id, word}) {
-    this.id = id
-    this.word = word
-  }
-}
-
 function Game() {
-  const [guesses, setGuesses] = React.useState([])
+  const [guessedWords, setGuessedWords] = React.useState([])
 
   function guessWord(word) {
-    const newGuess = new Guess({id: crypto.randomUUID(), word: word})
-    const newGuesses = [...guesses, newGuess]
-    setGuesses(newGuesses)
+    const nextGuessedWord = new GuessedWord({word: word})
+    setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
+  const checkedGuesses = guessedWords.map(guessedWord => {
+      return new CheckedGuess({
+        id: guessedWord.id,
+        guess: guessedWord.value,
+        answer: answer
+      })
+    }
+  )
+
   return <>
-      <GuessesOutput guesses={guesses}/>
+      <GuessesOutput guesses={checkedGuesses} />
       <GuessInput submitNewGuess={guessWord} />
     </>
 }

@@ -3,13 +3,18 @@ import React from 'react';
 import {range} from "../../utils";
 
 
-function Guess({word}) {
-  const letters = word.split("")
-  const cells = range(5).map(index => {
-    const letter = letters[index] || ""
+function Guess({checkedLetters}) {
+  const cells = range(5).map(num => {
+    // Check if we have a letter for the index. Create dummy if not.
+    // This should only be empty when the whole row is empty.
+    const checkedLetter = checkedLetters[num] || {letter: "", status: ""}
+
     return (
       // We are ok to use the index here, because the letters won't be reordered.
-      <span key={index} className="cell">{letter}</span>
+      <span
+        key={num}
+        className={`cell ${checkedLetter.status}`}
+      >{checkedLetter.letter}</span>
     )
   })
 
