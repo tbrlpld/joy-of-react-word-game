@@ -21,16 +21,12 @@ function Game() {
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
-  const guesses = guessedWords.map(guessedWord => {
-    return (
-      <Guess key={guessedWord.id} word={guessedWord.value} answer={answer} />
-    )
-  })
-
   return (
     <>
       <GuessesOutput>
-        {guesses}
+        {guessedWords.map(guessedWord => (
+          <Guess key={guessedWord.id} word={guessedWord.value} answer={answer} />
+        ))}
       </GuessesOutput>
       <GuessInput submitNewGuess={guessWord} />
     </>
