@@ -5,36 +5,42 @@ import {checkGuess} from "../../game-helpers";
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
+import guess from "../Guess";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
-/**
- * Create a guess from a word.
- *
- * Checks the guess against the answer and holds the letters with their status.
- * A letters status can be "incorrect", "misplaced" or "correct".
- */
-class Guess {
-  constructor({word}) {
-    this.id = crypto.randomUUID()
-    this.checkedLetters = checkGuess(word, answer)
+class GuessedWord {
+  constructor({id, word}) {
+    this.id = id || crypto.randomUUID()
+    this.value = word
+  }
+}
+
+class CheckedGuess {
+  constructor({ id, word }) {
+    this.id = id || crypto.randomUUID()
+    this.checkedLetters = checkGuess( {guess: word, answer: answer})
   }
 }
 
 function Game() {
-  const [guesses, setGuesses] = React.useState([])
+  const [guessedWords, setGuessedWords] = React.useState([])
 
   function guessWord(word) {
-    const newGuess = new Guess({word: word})
-    const newGuesses = [...guesses, newGuess]
-    setGuesses(newGuesses)
+    const nextGuessedWord = new GuessedWord({word: word})
+    setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
+  const checkedGuesses = guessedWords.map(guessedWord => {
+      return new CheckedGuess({id: guessedWord.id, word: guessedWord.value})
+    }
+  )
+
   return <>
-      <GuessesOutput guesses={guesses} />
+      <GuessesOutput guesses={checkedGuesses} />
       <GuessInput submitNewGuess={guessWord} />
     </>
 }
