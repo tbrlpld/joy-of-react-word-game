@@ -5,14 +5,10 @@ import {range} from "../../utils";
 
 
 function Guess({word, answer}) {
-  console.log({word, answer})
-
   let checkedLetters
-  const neitherWordNorAnswer = !word && !answer
-  const wordAndAnswer = word && answer
-  if (neitherWordNorAnswer){
+  if (!word && !answer){
     checkedLetters = []
-  } else if (wordAndAnswer) {
+  } else if (word && answer) {
     checkedLetters = checkGuess({guess: word.toUpperCase(), answer: answer.toUpperCase()})
   } else {
     console.error("Word and answer need to be specified in conjunction.")
