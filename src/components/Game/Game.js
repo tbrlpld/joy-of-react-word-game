@@ -5,6 +5,8 @@ import { GuessedWord, CheckedGuess } from '../../models';
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
+import Guess from "../Guess";
+
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -19,19 +21,17 @@ function Game() {
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
-  const checkedGuesses = guessedWords.map(guessedWord => {
-      return new CheckedGuess({
-        id: guessedWord.id,
-        guess: guessedWord.value,
-        answer: answer
-      })
-    }
-  )
-
-  return <>
-      <GuessesOutput guesses={checkedGuesses} />
+  return (
+    <>
+      <Guess />
+      <Guess word="world" answer="world" />
+      <Guess word="hello" answer="world" />
+      <Guess word="HELLO" answer="WORLD" />
+      {/*<GuessesOutput guesses={checkedGuesses} />*/}
       <GuessInput submitNewGuess={guessWord} />
     </>
+  )
 }
+
 
 export default Game;
