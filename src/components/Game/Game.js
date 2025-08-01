@@ -1,30 +1,15 @@
 import React from 'react';
 
 import { WORDS } from '../../data';
-import {checkGuess} from "../../game-helpers";
+import { GuessedWord, CheckedGuess } from '../../models';
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
-import guess from "../Guess";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
-
-class GuessedWord {
-  constructor({id, word}) {
-    this.id = id || crypto.randomUUID()
-    this.value = word
-  }
-}
-
-class CheckedGuess {
-  constructor({ id, word }) {
-    this.id = id || crypto.randomUUID()
-    this.checkedLetters = checkGuess( {guess: word, answer: answer})
-  }
-}
 
 function Game() {
   const [guessedWords, setGuessedWords] = React.useState([])
@@ -35,7 +20,11 @@ function Game() {
   }
 
   const checkedGuesses = guessedWords.map(guessedWord => {
-      return new CheckedGuess({id: guessedWord.id, word: guessedWord.value})
+      return new CheckedGuess({
+        id: guessedWord.id,
+        guess: guessedWord.value,
+        answer: answer
+      })
     }
   )
 
