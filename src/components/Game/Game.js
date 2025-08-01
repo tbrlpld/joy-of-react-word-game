@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { WORDS } from '../../data';
-import { GuessedWord } from '../../models';
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
@@ -37,5 +36,11 @@ function Game() {
   )
 }
 
+class GuessedWord {
+  constructor({id, word}) {
+    this.id = id || crypto.randomUUID()
+    this.value = word
+  }
+}
 
 export default Game;
