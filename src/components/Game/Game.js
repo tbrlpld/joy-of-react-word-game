@@ -23,11 +23,10 @@ function Game() {
 
   return (
     <>
-      <Guess />
-      <Guess word="world" answer="world" />
-      <Guess word="hello" answer="world" />
-      <Guess word="HELLO" answer="WORLD" />
-      {/*<GuessesOutput guesses={checkedGuesses} />*/}
+      <GuessesOutput>
+        <Guess />
+        <Guess word="HELLO" answer="WORLD" />
+      </GuessesOutput>
       <GuessInput submitNewGuess={guessWord} />
     </>
   )
