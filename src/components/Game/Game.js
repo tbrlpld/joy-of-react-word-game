@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { WORDS } from '../../data';
-import { getGameState } from '../../game-helpers'
+import { checkGuess, getGameState } from '../../game-helpers'
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
@@ -10,6 +10,7 @@ import { GuessedWord } from './Game.models';
 import WonBanner from '../WonBanner'
 import LostBanner from '../LostBanner'
 import Keyboard from '../Keyboard'
+import guess from '../Guess'
 
 
 // Pick a random word on every pageload.
@@ -25,15 +26,25 @@ function Game() {
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
-  const words = guessedWords.map(item => item.value)
+  const guessElements = []
+  const checkedGuesses =  []
+  const words = []
+
+  guessedWords.forEach(guessedWord => {
+    const checkedGuess = checkGuess({guess: guessedWord.value, answer: answer})
+    guessElements.push(
+      <Guess key={guessedWord.id} checkedGuess={checkedGuess} />
+    )
+    checkedGuess.push(checkedGuess)
+    words.push(guessedWord.value)
+  })
+
   const gameStatus = getGameState({guessedWords: words, answer: answer})
 
   return (
     <>
       <GuessesOutput>
-        {guessedWords.map(guessedWord => (
-          <Guess key={guessedWord.id} word={guessedWord.value} answer={answer} />
-        ))}
+        {guessElements}
       </GuessesOutput>
 
       <GuessInput submitNewGuess={guessWord} disabled={gameStatus !== "playing"}/>
