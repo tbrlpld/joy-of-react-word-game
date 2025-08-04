@@ -1,9 +1,10 @@
 import React from 'react';
+import { checkGuess } from '../../game-helpers'
 
 const keys = [
-  ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-  ['z', 'x', 'c', 'v', 'b', 'n', 'm']
+  ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+  ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+  ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 ];
 
 function getInitialKeyStates() {
@@ -17,9 +18,16 @@ function getInitialKeyStates() {
 }
 
 function Keyboard({words, answer}) {
-  const [keyStates, setKeyStates] = React.useState(getInitialKeyStates)
+  const keyStates= getInitialKeyStates()
 
-  console.log(keyStates)
+  words.forEach(word => {
+    const checkedGuess  = checkGuess({guess: word, answer: answer})
+    checkedGuess.forEach(checkedLetter => {
+      keyStates[checkedLetter.letter] = checkedLetter.status
+    })
+  })
+
+  console.log({keyStates})
 
   return (
     <div className="keyboard">
