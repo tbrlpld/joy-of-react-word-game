@@ -7,11 +7,23 @@ const keys = [
   ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 ];
 
+
+class KeyState {
+  constructor () {
+    this.value = "unused"
+  }
+
+  // set value(newValue) {
+  //   console.log({newValue})
+  //   this.value = newValue
+  // }
+}
+
 function getInitialKeyStates() {
   const states = {}
   keys.forEach(row => {
     row.forEach(key => {
-      states[key] = "unused"
+      states[key] = new KeyState()
     })
   })
   return states
@@ -23,7 +35,7 @@ function Keyboard({words, answer}) {
   words.forEach(word => {
     const checkedGuess  = checkGuess({guess: word, answer: answer})
     checkedGuess.forEach(checkedLetter => {
-      keyStates[checkedLetter.letter] = checkedLetter.status
+      keyStates[checkedLetter.letter].value = checkedLetter.status
     })
   })
 
