@@ -8,6 +8,8 @@ import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
 import Guess from "../Guess";
 import { GuessedWord } from './Game.models';
+import WonBanner from '../WonBanner'
+import LostBanner from '../LostBanner'
 
 
 // Pick a random word on every pageload.
@@ -24,8 +26,8 @@ function Game() {
   }
 
   const words = guessedWords.map(item => item.value)
-  const state = getGameState({guessedWords: words, answer: answer})
-  const isOver = isGameOver({state})
+  const gameStatus = getGameState({guessedWords: words, answer: answer})
+  const isOver = isGameOver({ state: gameStatus})
 
   return (
     <>
@@ -35,7 +37,8 @@ function Game() {
         ))}
       </GuessesOutput>
       <GuessInput submitNewGuess={guessWord} disabled={isOver}/>
-      { isOver && <End isWon={state === "won"} guessCount={guessedWords.length} answer={answer}/>}
+      { gameStatus === "won" && <WonBanner numOfGuesses={guessedWords.length} />}
+      { gameStatus === "lost" && <LostBanner answer={answer} /> }
     </>
   )
 }
