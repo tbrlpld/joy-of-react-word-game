@@ -17,29 +17,43 @@ const ALLOWED_TRANSITONS = {
   "correct": [],
 }
 
-function getInitialKeyStates() {
-  const states = {}
-  keys.forEach(row => {
-    row.forEach(key => {
-      states[key] = "unused"
+class KeyStates {
+  constructor () {
+    keys.forEach(row => {
+      row.forEach(key => {
+        this[key] = "unused"
+      })
     })
-  })
-  return states
+  }
+
+  /**
+   * Update status for key.
+   *
+   * Will only perform update if it is a valid transition.
+   * Other transitions are ignored.
+   *
+   * @param {string} key The key to update the status for.
+   * @param {string} newStatus The new status that should be stored for the key.
+   */
+  updateKeyStatus({key, newStatus}) {
+    const currentStatus = this[key]
+    const allowedTransitionsForCurrentStatus = ALLOWED_TRANSITONS[currentStatus]
+    if (allowedTransitionsForCurrentStatus.includes(newStatus)) {
+      this[key] = newStatus
+    }
+  }
 }
 
 function Keyboard({words, answer}) {
-  const keyStates= getInitialKeyStates()
+  const keyStates= new KeyStates()
 
   words.forEach(word => {
     const checkedGuess  = checkGuess({guess: word, answer: answer})
     checkedGuess.forEach(checkedLetter => {
-      const letter = checkedLetter.letter
-      const currentStatus = keyStates[letter]
-      const potentialNextStatus = checkedLetter.status
-      const allowedTransitions = ALLOWED_TRANSITONS[currentStatus]
-      if (allowedTransitions.includes(potentialNextStatus)) {
-        keyStates[letter] = potentialNextStatus
-      }
+      keyStates.updateKeyStatus({
+        key: checkedLetter.letter,
+        newStatus: checkedLetter.status,
+      })
     })
   })
 
