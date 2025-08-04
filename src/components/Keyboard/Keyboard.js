@@ -23,10 +23,20 @@ class KeyStates {
     "correct": [],
   }
 
-  constructor () {
+  constructor ({words, answer}) {
     keys.forEach(row => {
       row.forEach(key => {
         this[key] = KeyStates.UNUSED
+      })
+    })
+
+    words.forEach(word => {
+      const checkedGuess  = checkGuess({guess: word, answer: answer})
+      checkedGuess.forEach(checkedLetter => {
+        this.updateKeyStatus({
+          key: checkedLetter.letter,
+          newStatus: checkedLetter.status,
+        })
       })
     })
   }
@@ -50,17 +60,7 @@ class KeyStates {
 }
 
 function Keyboard({words, answer}) {
-  const keyStates= new KeyStates()
-
-  words.forEach(word => {
-    const checkedGuess  = checkGuess({guess: word, answer: answer})
-    checkedGuess.forEach(checkedLetter => {
-      keyStates.updateKeyStatus({
-        key: checkedLetter.letter,
-        newStatus: checkedLetter.status,
-      })
-    })
-  })
+  const keyStates = new KeyStates({words, answer})
 
   return (
     <div className="keyboard">
