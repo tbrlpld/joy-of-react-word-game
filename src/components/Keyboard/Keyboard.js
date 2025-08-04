@@ -37,7 +37,7 @@ function Keyboard({words, answer}) {
             // The rows don't change, so it's ok to used index here.
             <div key={index} className="keyboard__row">
               {row.map(key => {
-                return <div key={key} className="keyboard__key">{key}</div>
+                return <div key={key} className={`keyboard__key ${keyStates[key]}`}>{key}</div>
               })}
             </div>
           )
