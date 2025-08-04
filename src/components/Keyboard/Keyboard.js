@@ -7,21 +7,26 @@ const keys = [
   ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 ];
 
-const ALLOWED_TRANSITONS = {
-  "unused": ["incorrect", "misplaced", "correct"],
-  // When there are multiple occurrences, there can be a correct one and a incorrect one.
-  // If the correct ones position is after the incorrect one, we might find the incorrect one first.
-  // Thus, we need to allow to upgrade from first one we found (incorrect) to second one (correct).
-  "incorrect": ["correct"],
-  "misplaced": ["correct"],
-  "correct": [],
-}
-
 class KeyStates {
+  static UNUSED = "unused"
+  static MISPLACED = "misplaced"
+  static CORRECT = "correct"
+  static INCORRECT = "incorrect"
+
+  static ALLOWED_TRANSITONS = {
+    "unused": [KeyStates.INCORRECT, KeyStates.MISPLACED, KeyStates.CORRECT],
+    // When there are multiple occurrences, there can be a correct one and a incorrect one.
+    // If the correct ones position is after the incorrect one, we might find the incorrect one first.
+    // Thus, we need to allow to upgrade from first one we found (incorrect) to second one (correct).
+    "incorrect": [KeyStates.CORRECT],
+    "misplaced": [KeyStates.CORRECT],
+    "correct": [],
+  }
+
   constructor () {
     keys.forEach(row => {
       row.forEach(key => {
-        this[key] = "unused"
+        this[key] = KeyStates.UNUSED
       })
     })
   }
@@ -37,7 +42,7 @@ class KeyStates {
    */
   updateKeyStatus({key, newStatus}) {
     const currentStatus = this[key]
-    const allowedTransitionsForCurrentStatus = ALLOWED_TRANSITONS[currentStatus]
+    const allowedTransitionsForCurrentStatus = KeyStates.ALLOWED_TRANSITONS[currentStatus]
     if (allowedTransitionsForCurrentStatus.includes(newStatus)) {
       this[key] = newStatus
     }
