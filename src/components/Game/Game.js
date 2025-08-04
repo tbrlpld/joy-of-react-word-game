@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { WORDS } from '../../data';
-import { checkGuess, getGameState } from '../../game-helpers'
+import { checkGuess, getGameStatus } from '../../game-helpers'
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
@@ -39,7 +39,7 @@ function Game() {
     words.push(guessedWord.value)
   })
 
-  const gameStatus = getGameState({guessedWords: words, answer: answer})
+  const gameStatus = getGameStatus({words: words, answer: answer})
 
   return (
     <>

@@ -56,18 +56,18 @@ export function checkGuess({guess, answer}) {
   return result;
 }
 
-export function isGameWon({guessedWords, answer}) {
-  return guessedWords.includes(answer)
+export function isGameWon({words, answer}) {
+  return words.includes(answer)
 }
 
-export function isMaxTriesReached({guessedWords}){
-  return guessedWords.length >= NUM_OF_GUESSES_ALLOWED
+export function isMaxTriesReached({words}){
+  return words.length >= NUM_OF_GUESSES_ALLOWED
 }
 
-export function getGameState({guessedWords, answer}) {
-  if (isGameWon({guessedWords: guessedWords, answer: answer})) {
+export function getGameStatus({words, answer}) {
+  if (isGameWon({words, answer: answer})) {
     return "won"
-  } else if (isMaxTriesReached({guessedWords: guessedWords})) {
+  } else if (isMaxTriesReached({words})) {
     return "lost"
   } else {
     return "playing"
