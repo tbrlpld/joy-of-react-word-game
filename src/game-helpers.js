@@ -73,7 +73,3 @@ export function getGameState({guessedWords, answer}) {
     return "playing"
   }
 }
-
-export function isGameOver({state}) {
-  return (state === "won" || state === "lost")
-}
