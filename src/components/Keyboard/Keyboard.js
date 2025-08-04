@@ -9,14 +9,32 @@ const keys = [
 
 
 class KeyState {
-  constructor () {
-    this.value = "unused"
+  #value
+
+  static #allowedTransitions = {
+    "unused": ["incorrect", "misplaced", "correct"],
+    "incorrect": [],
+    "misplaced": ["correct"],
+    "correct": [],
   }
 
-  // set value(newValue) {
-  //   console.log({newValue})
-  //   this.value = newValue
-  // }
+  constructor () {
+    this.#value = "unused"
+  }
+
+  get value() {
+    return this.#value
+  }
+
+  set value(newValue) {
+    if (newValue === this.#value) {return}
+
+    if (KeyState.#allowedTransitions[this.#value].includes(newValue)) {
+      this.#value = newValue
+    } else {
+      throw Error("Transition not allowed", this.#value, newValue)
+    }
+  }
 }
 
 function getInitialKeyStates() {
