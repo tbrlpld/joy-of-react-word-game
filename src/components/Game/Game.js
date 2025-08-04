@@ -11,12 +11,15 @@ import WonBanner from '../WonBanner'
 import LostBanner from '../LostBanner'
 import Keyboard from '../Keyboard'
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS)
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer })
+function getAnswer () {
+  return sample(WORDS)
+}
 
 function Game () {
+  const [answer, setAnswer] = React.useState(getAnswer)
+  // To make debugging easier, we'll log the solution in the console.
+  console.info({ answer })
+
   const [guessedWords, setGuessedWords] = React.useState([])
 
   function guessWord (word) {
