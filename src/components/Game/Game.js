@@ -3,6 +3,7 @@ import React from 'react';
 import { WORDS } from '../../data';
 import { isGameWon } from '../../game-helpers';
 import { sample } from '../../utils';
+import End from "../End";
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
 import Guess from "../Guess";
@@ -33,6 +34,7 @@ function Game() {
         ))}
       </GuessesOutput>
       <GuessInput submitNewGuess={guessWord} disabled={isWon}/>
+      { isWon && <End />}
     </>
   )
 }
