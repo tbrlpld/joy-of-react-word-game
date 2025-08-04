@@ -230,3 +230,23 @@ h1 {
     transform: translateY(0%);
   }
 }
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  gap: .5rem;
+}
+
+.keyboard__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.keyboard__key {
+  background-color: var(--color-gray-900);
+  padding-inline: 1em;
+  padding-block: .5em;
+}

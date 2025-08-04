@@ -9,6 +9,7 @@ import Guess from "../Guess";
 import { GuessedWord } from './Game.models';
 import WonBanner from '../WonBanner'
 import LostBanner from '../LostBanner'
+import Keyboard from '../Keyboard'
 
 
 // Pick a random word on every pageload.
@@ -34,9 +35,13 @@ function Game() {
           <Guess key={guessedWord.id} word={guessedWord.value} answer={answer} />
         ))}
       </GuessesOutput>
+
       <GuessInput submitNewGuess={guessWord} disabled={gameStatus !== "playing"}/>
+
       { gameStatus === "won" && <WonBanner numOfGuesses={guessedWords.length} />}
       { gameStatus === "lost" && <LostBanner answer={answer} /> }
+
+      <Keyboard />
     </>
   )
 }
