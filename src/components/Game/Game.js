@@ -51,7 +51,7 @@ function Game () {
 
   return (
     <>
-      <input type="button" value="Reset" onClick={reset}/>
+      <button onClick={reset}>Reset</button>
 
       <GuessesOutput>
         {guessElements}
