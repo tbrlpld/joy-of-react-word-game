@@ -5,8 +5,10 @@ function GuessInput ({ submitNewGuess, disabled }) {
 
   function handleSubmit (event) {
     event.preventDefault()
-    submitNewGuess(word)
-    setWord('')
+    if (word) {
+      submitNewGuess(word)
+      setWord('')
+    }
   }
 
   return (
