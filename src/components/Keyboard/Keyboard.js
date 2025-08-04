@@ -6,24 +6,17 @@ const keys = [
   ['z', 'x', 'c', 'v', 'b', 'n', 'm']
 ];
 
-class KeyState {
-  constructor({letter}){
-    this.letter = letter
-    this.state = "unused"
-  }
-}
-
 function getInitialKeyStates() {
   const states = {}
   keys.forEach(row => {
     row.forEach(key => {
-      states[key] = new KeyState({letter: key})
+      states[key] = "unused"
     })
   })
   return states
 }
 
-function Keyboard() {
+function Keyboard({words, answer}) {
   const [keyStates, setKeyStates] = React.useState(getInitialKeyStates)
 
   console.log(keyStates)
