@@ -32,7 +32,7 @@ function Game() {
           <Guess key={guessedWord.id} word={guessedWord.value} answer={answer} />
         ))}
       </GuessesOutput>
-      <GuessInput submitNewGuess={guessWord} />
+      <GuessInput submitNewGuess={guessWord} disabled={isWon}/>
     </>
   )
 }
