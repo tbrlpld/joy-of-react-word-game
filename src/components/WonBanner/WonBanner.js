@@ -1,22 +1,21 @@
-import React from 'react';
+import React from 'react'
 
 import Banner from '../Banner'
 
-
-function WonBanner({numOfGuesses}) {
+function WonBanner ({ numOfGuesses, reset }) {
   return (
-    <Banner status="happy">
+    <Banner status="happy" action={reset}>
       <p>
         <strong>Congratulations!</strong> Got it in
-        {" "}
+        {' '}
         <strong>{
           numOfGuesses === 1
-            ? "1 guess"
+            ? '1 guess'
             : `${numOfGuesses} guesses`
         }</strong>.
       </p>
     </Banner>
-    )
+  )
 }
 
-export default WonBanner;
+export default WonBanner

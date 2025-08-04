@@ -27,12 +27,6 @@ function Game () {
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
-  function reset () {
-    const nextAnswer = getAnswer()
-    setAnswer(nextAnswer)
-    setGuessedWords([])
-  }
-
   const guessElements = []
   const checkedGuesses = []
   const words = []
@@ -49,9 +43,18 @@ function Game () {
 
   const gameStatus = getGameStatus({ words: words, answer: answer })
 
+  function reset () {
+    const nextAnswer = getAnswer()
+    setAnswer(nextAnswer)
+    setGuessedWords([])
+  }
+
+  const resetButton = (
+    <button onClick={reset}>Reset</button>
+  )
+
   return (
     <>
-      <button onClick={reset}>Reset</button>
 
       <GuessesOutput>
         {guessElements}
@@ -59,8 +62,8 @@ function Game () {
 
       <GuessInput submitNewGuess={guessWord} disabled={gameStatus !== 'playing'}/>
 
-      {gameStatus === 'won' && <WonBanner numOfGuesses={guessedWords.length}/>}
-      {gameStatus === 'lost' && <LostBanner answer={answer}/>}
+      {gameStatus === 'won' && <WonBanner numOfGuesses={guessedWords.length} reset={resetButton}/>}
+      {gameStatus === 'lost' && <LostBanner answer={answer} reset={resetButton}/>}
 
       <Keyboard checkedGuesses={checkedGuesses}/>
     </>
