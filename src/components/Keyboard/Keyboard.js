@@ -7,44 +7,21 @@ const keys = [
   ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 ];
 
-
-class KeyState {
-  #value
-
-  static #allowedTransitions = {
-    "unused": ["incorrect", "misplaced", "correct"],
-    // When there are multiple occurrences, there can be a correct one and a incorrect one.
-    // If the correct ones position is after the incorrect one, we might find the incorrect one first.
-    // Thus, we need to allow to upgrade from first one we found (incorrect) to second one (correct).
-    "incorrect": ["correct"],
-    "misplaced": ["correct"],
-    "correct": [],
-  }
-
-  constructor () {
-    this.#value = "unused"
-  }
-
-  get value() {
-    return this.#value
-  }
-
-  set value(newValue) {
-    if (newValue === this.#value) {return}
-
-    if (KeyState.#allowedTransitions[this.#value].includes(newValue)) {
-      this.#value = newValue
-    } else {
-      console.debug(`Transition not allowed from "${this.#value}" to "${newValue}".`)
-    }
-  }
+const ALLOWED_TRANSITONS = {
+  "unused": ["incorrect", "misplaced", "correct"],
+  // When there are multiple occurrences, there can be a correct one and a incorrect one.
+  // If the correct ones position is after the incorrect one, we might find the incorrect one first.
+  // Thus, we need to allow to upgrade from first one we found (incorrect) to second one (correct).
+  "incorrect": ["correct"],
+  "misplaced": ["correct"],
+  "correct": [],
 }
 
 function getInitialKeyStates() {
   const states = {}
   keys.forEach(row => {
     row.forEach(key => {
-      states[key] = new KeyState()
+      states[key] = "unused"
     })
   })
   return states
@@ -57,12 +34,14 @@ function Keyboard({words, answer}) {
     const checkedGuess  = checkGuess({guess: word, answer: answer})
     checkedGuess.forEach(checkedLetter => {
       const letter = checkedLetter.letter
-      const state = keyStates[letter]
-      state.value = checkedLetter.status
+      const currentStatus = keyStates[letter]
+      const potentialNextStatus = checkedLetter.status
+      const allowedTransitions = ALLOWED_TRANSITONS[currentStatus]
+      if (allowedTransitions.includes(potentialNextStatus)) {
+        keyStates[letter] = potentialNextStatus
+      }
     })
   })
-
-  console.log({keyStates})
 
   return (
     <div className="keyboard">
@@ -72,7 +51,7 @@ function Keyboard({words, answer}) {
             // The rows don't change, so it's ok to used index here.
             <div key={index} className="keyboard__row">
               {row.map(key => {
-                return <div key={key} className={`keyboard__key ${keyStates[key].value}`}>{key}</div>
+                return <div key={key} className={`keyboard__key ${keyStates[key]}`}>{key}</div>
               })}
             </div>
           )
