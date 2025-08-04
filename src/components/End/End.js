@@ -1,8 +1,9 @@
 import React from 'react';
 
-function End() {
+function End({isWon, guessCount}) {
+  const bannerModifierClass  = isWon ? "happy" : "sad"
   return (
-    <div className="happy banner">
+    <div className={bannerModifierClass + " banner" }>
       <p>
         <strong>Congratulations!</strong> Got it in
         <strong>3 guesses</strong>.

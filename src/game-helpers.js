@@ -64,6 +64,16 @@ export function isMaxTriesReached({guessedWords}){
   return guessedWords.length >= NUM_OF_GUESSES_ALLOWED
 }
 
-export function isGameOver({guessedWords, answer}) {
-  return isGameWon({guessedWords: guessedWords, answer: answer}) || isMaxTriesReached({guessedWords: guessedWords})
+export function getGameState({guessedWords, answer}) {
+  if (isGameWon({guessedWords: guessedWords, answer: answer})) {
+    return "won"
+  } else if (isMaxTriesReached({guessedWords: guessedWords})) {
+    return "lost"
+  } else {
+    return "playing"
+  }
+}
+
+export function isGameOver({state}) {
+  return (state === "won" || state === "lost")
 }
