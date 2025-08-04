@@ -13,11 +13,9 @@ class KeyState {
 
   static #allowedTransitions = {
     "unused": ["incorrect", "misplaced", "correct"],
-    // When there are multiple occurrences, there can be a correct one.
-    // That is counted first.
-    // Others are considered incorrect.
-    // If the correct position is after, we might find the incorrect one first.
-    // Thus, we need to allow upgrade from incorrect to correct.
+    // When there are multiple occurrences, there can be a correct one and a incorrect one.
+    // If the correct ones position is after the incorrect one, we might find the incorrect one first.
+    // Thus, we need to allow to upgrade from first one we found (incorrect) to second one (correct).
     "incorrect": ["correct"],
     "misplaced": ["correct"],
     "correct": [],
