@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { WORDS } from '../../data';
+import { getGameState, isGameOver } from '../../game-helpers'
 import { sample } from '../../utils';
+import End from "../End";
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
 import Guess from "../Guess";
@@ -21,6 +23,10 @@ function Game() {
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
+  const words = guessedWords.map(item => item.value)
+  const state = getGameState({guessedWords: words, answer: answer})
+  const isOver = isGameOver({state})
+
   return (
     <>
       <GuessesOutput>
@@ -28,7 +34,8 @@ function Game() {
           <Guess key={guessedWord.id} word={guessedWord.value} answer={answer} />
         ))}
       </GuessesOutput>
-      <GuessInput submitNewGuess={guessWord} />
+      <GuessInput submitNewGuess={guessWord} disabled={isOver}/>
+      { isOver && <End isWon={state === "won"} guessCount={guessedWords.length} answer={answer}/>}
     </>
   )
 }

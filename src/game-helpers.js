@@ -2,6 +2,8 @@
  * Thanks to Github user dylano for supplying a more-accurate
  * solving algorithm!
  */
+import {NUM_OF_GUESSES_ALLOWED} from "./constants"
+
 
 export function checkGuess({guess, answer}) {
   // This constant is a placeholder that indicates we've successfully
@@ -52,4 +54,26 @@ export function checkGuess({guess, answer}) {
   }
 
   return result;
+}
+
+export function isGameWon({guessedWords, answer}) {
+  return guessedWords.includes(answer)
+}
+
+export function isMaxTriesReached({guessedWords}){
+  return guessedWords.length >= NUM_OF_GUESSES_ALLOWED
+}
+
+export function getGameState({guessedWords, answer}) {
+  if (isGameWon({guessedWords: guessedWords, answer: answer})) {
+    return "won"
+  } else if (isMaxTriesReached({guessedWords: guessedWords})) {
+    return "lost"
+  } else {
+    return "playing"
+  }
+}
+
+export function isGameOver({state}) {
+  return (state === "won" || state === "lost")
 }
