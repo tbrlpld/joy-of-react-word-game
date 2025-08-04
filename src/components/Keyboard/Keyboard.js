@@ -23,15 +23,14 @@ class KeyStates {
     "correct": [],
   }
 
-  constructor ({words, answer}) {
+  constructor ({checkedGuesses}) {
     keys.forEach(row => {
       row.forEach(key => {
         this[key] = KeyStates.UNUSED
       })
     })
 
-    words.forEach(word => {
-      const checkedGuess  = checkGuess({guess: word, answer: answer})
+    checkedGuesses.forEach(checkedGuess => {
       checkedGuess.forEach(checkedLetter => {
         this.updateKeyStatus({
           key: checkedLetter.letter,
@@ -59,8 +58,8 @@ class KeyStates {
   }
 }
 
-function Keyboard({words, answer}) {
-  const keyStates = new KeyStates({words, answer})
+function Keyboard({checkedGuesses}) {
+  const keyStates = new KeyStates({checkedGuesses})
 
   return (
     <div className="keyboard">

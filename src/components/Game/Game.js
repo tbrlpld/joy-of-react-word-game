@@ -32,10 +32,11 @@ function Game() {
 
   guessedWords.forEach(guessedWord => {
     const checkedGuess = checkGuess({guess: guessedWord.value, answer: answer})
+
     guessElements.push(
       <Guess key={guessedWord.id} checkedGuess={checkedGuess} />
     )
-    checkedGuess.push(checkedGuess)
+    checkedGuesses.push(checkedGuess)
     words.push(guessedWord.value)
   })
 
@@ -52,7 +53,7 @@ function Game() {
       { gameStatus === "won" && <WonBanner numOfGuesses={guessedWords.length} />}
       { gameStatus === "lost" && <LostBanner answer={answer} /> }
 
-      <Keyboard words={words} answer={answer}/>
+      <Keyboard checkedGuesses={checkedGuesses}/>
     </>
   )
 }
