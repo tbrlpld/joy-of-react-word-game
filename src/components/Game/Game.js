@@ -35,7 +35,7 @@ function Game() {
         ))}
       </GuessesOutput>
       <GuessInput submitNewGuess={guessWord} disabled={isOver}/>
-      { isOver && <End isWon={state === "won"} guessCount={guessedWords.length} />}
+      { isOver && <End isWon={state === "won"} guessCount={guessedWords.length} answer={answer}/>}
     </>
   )
 }

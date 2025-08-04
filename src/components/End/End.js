@@ -1,15 +1,23 @@
 import React from 'react';
 
-function End({isWon, guessCount}) {
-  const bannerModifierClass  = isWon ? "happy" : "sad"
-  return (
-    <div className={bannerModifierClass + " banner" }>
-      <p>
-        <strong>Congratulations!</strong> Got it in
-        <strong>3 guesses</strong>.
-      </p>
-    </div>
-  )
+function End({isWon, guessCount, answer}) {
+  if (isWon) {
+    return (
+      <div className="happy banner">
+        <p>
+          <strong>Congratulations!</strong> Got it in
+          {" "}
+          <strong>{guessCount} guesses</strong>.
+        </p>
+      </div>
+    )
+  } else {
+    return (
+      <div className="sad banner">
+        <p>Sorry, the correct answer is <strong>{answer}</strong>.</p>
+      </div>
+    )
+  }
 }
 
 export default End;
