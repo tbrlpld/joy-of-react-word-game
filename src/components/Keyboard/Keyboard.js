@@ -24,15 +24,22 @@ class KeyStates {
   }
 
   constructor ({checkedGuesses}) {
+    this.#setInitialStates()
+    this.#updateStates({checkedGuesses: checkedGuesses})
+  }
+
+  #setInitialStates() {
     keys.forEach(row => {
       row.forEach(key => {
         this[key] = KeyStates.UNUSED
       })
     })
+  }
 
+  #updateStates({checkedGuesses}) {
     checkedGuesses.forEach(checkedGuess => {
       checkedGuess.forEach(checkedLetter => {
-        this.updateKeyStatus({
+        this.#updateStatus({
           key: checkedLetter.letter,
           newStatus: checkedLetter.status,
         })
@@ -40,16 +47,7 @@ class KeyStates {
     })
   }
 
-  /**
-   * Update status for key.
-   *
-   * Will only perform update if it is a valid transition.
-   * Other transitions are ignored.
-   *
-   * @param {string} key The key to update the status for.
-   * @param {string} newStatus The new status that should be stored for the key.
-   */
-  updateKeyStatus({key, newStatus}) {
+  #updateStatus({key, newStatus}) {
     const currentStatus = this[key]
     const allowedTransitionsForCurrentStatus = KeyStates.ALLOWED_TRANSITONS[currentStatus]
     if (allowedTransitionsForCurrentStatus.includes(newStatus)) {
