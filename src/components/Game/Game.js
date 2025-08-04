@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { WORDS } from '../../data';
+import { isGameWon } from '../../game-helpers';
 import { sample } from '../../utils';
 import GuessInput from "../GuessInput";
 import GuessesOutput from "../GuessesOutput";
@@ -20,6 +21,9 @@ function Game() {
     const nextGuessedWord = new GuessedWord({word: word})
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
+
+  const isWon = isGameWon({guessedWords: guessedWords.map(item => item.value), answer: answer})
+  console.log(isWon)
 
   return (
     <>

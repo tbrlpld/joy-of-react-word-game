@@ -53,3 +53,7 @@ export function checkGuess({guess, answer}) {
 
   return result;
 }
+
+export function isGameWon({guessedWords, answer}) {
+  return guessedWords.includes(answer)
+}
