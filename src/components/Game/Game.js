@@ -27,6 +27,12 @@ function Game () {
     setGuessedWords([...guessedWords, nextGuessedWord])
   }
 
+  function reset () {
+    const nextAnswer = getAnswer()
+    setAnswer(nextAnswer)
+    setGuessedWords([])
+  }
+
   const guessElements = []
   const checkedGuesses = []
   const words = []
@@ -45,6 +51,8 @@ function Game () {
 
   return (
     <>
+      <input type="button" value="Reset" onClick={reset}/>
+
       <GuessesOutput>
         {guessElements}
       </GuessesOutput>
