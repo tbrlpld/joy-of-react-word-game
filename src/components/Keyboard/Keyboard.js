@@ -37,7 +37,7 @@ class KeyState {
     if (KeyState.#allowedTransitions[this.#value].includes(newValue)) {
       this.#value = newValue
     } else {
-      throw Error("Transition not allowed", this.#value, newValue)
+      console.debug(`Transition not allowed from "${this.#value}" to "${newValue}".`)
     }
   }
 }
@@ -58,7 +58,9 @@ function Keyboard({words, answer}) {
   words.forEach(word => {
     const checkedGuess  = checkGuess({guess: word, answer: answer})
     checkedGuess.forEach(checkedLetter => {
-      keyStates[checkedLetter.letter].value = checkedLetter.status
+      const letter = checkedLetter.letter
+      const state = keyStates[letter]
+      state.value = checkedLetter.status
     })
   })
 
