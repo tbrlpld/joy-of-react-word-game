@@ -23,6 +23,7 @@ function GuessInput ({ submitNewGuess, disabled }) {
         }}
         maxLength={5}
         pattern="[a-zA-Z]{5}"
+        required={true}
         autoComplete="off"
         disabled={disabled}
       />
