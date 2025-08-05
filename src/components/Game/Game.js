@@ -61,10 +61,10 @@ function Game () {
 
       <GuessInput submitNewGuess={guessWord} disabled={gameStatus !== 'playing'}/>
 
+      <Keyboard checkedGuesses={checkedGuesses}/>
+
       {gameStatus === 'won' && <WonBanner numOfGuesses={guessedWords.length} reset={resetButton}/>}
       {gameStatus === 'lost' && <LostBanner answer={answer} reset={resetButton}/>}
-
-      <Keyboard checkedGuesses={checkedGuesses}/>
     </>
   )
 }
