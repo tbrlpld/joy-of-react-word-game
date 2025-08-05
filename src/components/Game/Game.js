@@ -55,7 +55,6 @@ function Game () {
 
   return (
     <>
-
       <GuessesOutput>
         {guessElements}
       </GuessesOutput>
